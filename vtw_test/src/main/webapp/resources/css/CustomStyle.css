@@ -1,0 +1,452 @@
+@CHARSET "UTF-8";
+body {font-family:"휴먼모음T";
+		background: #f5f6f7;}
+
+button{
+	display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    
+}
+/* ==================================== header ============================================*/
+header{
+	text-align: right;
+}
+
+#container-loginFrm {
+	position: relative;
+	overflow: hidden;
+	width: 400px;
+	margin: 350px auto 0;
+	border-radius: 6px;
+	box-shadow: 2px 2px 20px rgb(100 100 100 / 30%);
+	
+}
+#vtwLogo{
+	display: inline-block;
+	position:relative;
+    margin-top: 1%;
+    cursor: pointer;
+}
+
+#btn-signIn{
+	display: inline-block;
+    width: 45%;
+    height: 60px;
+    padding: 0;
+    background-color: #00a9cc;
+    border: none;
+    border-top: 1px solid #01809a;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+#btn-signUp{
+	display: inline-block;
+    width: 45%;
+    height: 60px;
+    padding: 0;
+    background-color: #00a9cc;
+    border: none;
+    border-top: 1px solid #01809a;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+	
+}
+
+#input_id{
+	border-bottom: 1px solid #c2c2c2;
+	margin: 0;
+    padding: 13px 0;
+    background: #fff;
+}
+
+#input_id label {
+	display: inline-block;
+    width: 80px;
+    padding: 0 0 0 30px;
+    font-size: 16px;
+    color: #666;
+}
+
+#input_pwd{
+	margin: 0;
+    padding: 13px 0;
+    background: #fff;
+}
+
+#input_pwd label{
+	display: inline-block;
+    width: 80px;
+    padding: 0 0 0 30px;
+    font-size: 16px;
+    color: #666;
+}
+
+#userid {
+	padding: 10px 5px;
+    width: 255px;
+    border: none;
+    
+}
+#userpwd {
+	padding: 10px 5px;
+    width: 255px;
+    border: none;
+}
+
+#btn-login{
+    background-color: #00a9cc;
+}
+
+
+
+
+/*==================================================== SignUpFrm ====================================================*/
+
+#signUpFrm{
+	margin-top: 200px;
+	
+}
+#container-signUp{
+	text-align: center;
+}
+
+#container-signUp p {
+	padding-right: 11.5%;
+}
+
+#pwdck{
+	padding-right: 9.5% !important;
+}
+#signUpFrm-pwd{
+	padding-right: 11% !important;
+}
+#signUp-Group-id {
+	display: inline-block;
+}
+
+#container-signUp span{
+	background: #fff;
+    outline: 0;
+    display: block;
+    position: relative;
+    width: max-content;
+    height: 51px;
+    border: solid 1px #dadada;
+    padding: 10px 110px 10px 14px;
+    box-sizing: border-box;
+    margin: 0px auto;
+    vertical-align: top;
+}
+#container-signUp input{
+	display: block;
+    position: relative;
+    width: 100%;
+    height: 29px;
+    padding-right: 25px;
+    line-height: 29px;
+    border: none;
+    background: #fff;
+    font-size: 15px;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+#signUp-Group-btn{
+	margin-top: 3%;
+}
+#signUp-btn{
+	color: white;
+
+	background-color: #00a9cc;
+	width: 10%;
+    height: 50px;
+    cursor: pointer;
+}
+#signUpCancel-btn{
+	color: white;
+	background-color: red;
+	width: 10%;
+    height: 50px;
+    cursor: pointer;
+}
+
+
+
+#error_span_id,#error_span_pwd,#error_span_pwdCk,#error_span_name {
+	color: red !important;
+	background-color: #f5f6f7 !important;
+	border: 0px solid transparent !important;
+	padding: 0 !important;
+	margin-top: 5px;
+}
+
+/*======================================================= 게시판 css ==========================================================================*/
+
+#container-board-choice{
+	display: inline-block;
+    float: left;
+    margin-top: 1em;
+}
+#create_board{
+	
+	background-color: #00a9cc;
+	color: white;
+	
+}
+
+#container-board {
+	margin-top : 2%;
+	margin-bottom : 0.5%;
+	text-align: right;
+}
+.main_table{
+	width:100%; 
+	margin:0 auto;
+	border-top:2px solid; 
+}
+
+.main_table th {
+	height:40px;
+	
+	border-bottom:1px solid #CCC;
+	font-weight: bold;
+	font-size: 17px;
+}
+
+.main_talbe td {
+	text-align:center;
+	padding:10px 0;
+	border-bottom:1px solid #CCC; 
+	height:20px;
+	font-size: 14px;
+	
+}
+.list_tr{
+	text-align:center;
+
+}
+.list_tr td{
+	cursor: pointer;
+	text-align:center;
+	height: 50px;
+	border-bottom: 1px solid #CCC;
+}
+
+
+/*======================================================= board detail css ==========================================================================*/
+
+
+
+.board_content{
+	padding: 1em;
+}
+.table_board th{
+	white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    height: 2em;
+    padding: 0.5em 0.75em;
+    font-size: 1em;
+    padding: 0.75em 1em;
+    border-top: 2px solid #e2e2e2;
+    background-color: lightgrey;
+    text-align: left;
+    width: 6em;
+    
+}
+.table_board td{
+	white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 1em;
+	border-top: 2px solid #e2e2e2;
+}
+#table_title{
+	height: 3em;
+    padding: 0.75em 1em;
+    font-size: 0.928em;
+    background-color: lightgrey;
+    color: #292929;
+    text-align: left;
+
+    border-top: 1px solid black;
+}
+.board_detail_container{
+	text-align: center;
+}
+.table_board{
+	margin: 0px auto;
+    margin-top: 7%;
+    text-align: left;
+    font: inherit;
+    border-bottom: 1px solid #ddd;
+    width: 60%;
+    
+}
+#detail_title{
+	display:inline-block;
+	width: 20%;
+}
+
+#btn-update{
+	background-color: #00a9cc;
+	color: white;
+	margin: 1em;
+}
+
+#btn-delete {
+	color:white;
+	background-color: red;
+}
+
+
+.comment {
+	
+	width: 55%;
+    height: 3em;
+    
+}
+#comment_btn {
+	background-color: #e2e2e2;
+	height: 3em;
+}
+
+
+.board_comment_container{
+	margin-top: 3%;
+}
+
+.board_comment_list ul li {
+	text-align: left;	
+}
+.board_comment_list{
+	position: relative;
+    left: 19.5%;
+}
+.list_content{
+	width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.list_btn{
+	position: absolute;
+    bottom: 10px;
+    left: 780px;
+}
+#ul_list li {
+	position: relative;
+	margin-bottom: 1em;
+	
+}
+#ul_list div {
+
+	display: inline-block;
+}
+#ul_list{
+	list-style: none;
+}
+
+.list_date{
+	font-size: 1px;
+    color: darkgray;
+}
+
+.board_comment_list ul li input{
+	width: 40%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: block;
+    height: 1.5em;
+}
+
+#empty {
+	font-size: 1.5em;
+}
+
+
+#pageBar {
+	list-style: none;
+	text-align: center;
+}
+.page-item{
+	display: inline-block;
+	float: left;
+	position: relative;
+	left: 40%;
+	margin-top: 2em;
+	margin-left: 3em;
+}
+
+/*======================================================= board form css ==========================================================================*/
+
+.boardFrm-container button{
+	margin-top: 5%;
+	background-color: #00a9cc;
+	color: white;
+}
+.boardFrm-table textarea{
+	resize: none;
+    display: block;
+    width: 100%;
+    height: 80px;
+    padding: 5px 10px;
+    border: 1px solid #d2d2d2;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.boardFrm-table input{
+	height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #d2d2d2;
+    font-size: 14px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    width: 100%;
+}
+.boardFrm-table th{
+	border-bottom: 2px solid #e2e2e2;
+	white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    height: 2em;
+    padding: 0.5em 0.75em;
+    font-size: 1em;
+    padding: 0.75em 1em;
+    background-color: lightgrey;
+    text-align: left;
+    width: 6em;
+}
+.boardFrm-table td{
+	text-align: left;
+	border-bottom: 2px solid #e2e2e2;
+	white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 1em;
+}
+.boardFrm-table{
+	margin: 0px auto;
+
+	border-bottom: 1px solid #e2e2e2;
+	border-top: 1px solid black;
+	width: 60%;
+}
+.boardFrm-container{
+	margin-top:10%;
+	text-align: center;
+	
+}

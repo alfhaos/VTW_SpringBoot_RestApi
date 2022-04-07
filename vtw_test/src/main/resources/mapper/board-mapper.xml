@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace = "com.example.demo.board.model.dao.BoardDao">
+ 
+ 
+ 	<select id="selectBoardUser" resultMap="board">
+ 	select
+		*
+	from
+		(select
+			row_number() over(order by num desc) rnum,
+			b.*
+		from
+			board_hb b
+		where
+			memberid = #{memberId})
+	where
+		rnum between #{param.startNum} and #{param.endNum}	
+ 	
+ 	</select>
+ 	
+ 	
+ 	<select id="selectBoardReadCount" resultMap="board">
+ 		select
+ 			*
+ 		from
+ 			(select
+ 				row_number() over(order by read_count desc) rnum,
+ 				b.*
+ 			from
+ 				board_hb b)
+ 		where
+ 			rnum between #{startNum} and #{endNum}
+
+ 	</select>
+ 	
+ 	<update id="updateComment">
+ 	
+ 		update
+ 			comment_hb
+ 		set
+ 			content = #{commentContent}
+ 		where
+ 			boardnum = #{boardNum} and commentnum = #{commentNum}
+ 			
+ 	</update>
+ 	
+ 	<delete id="deleteComment">
+ 		delete from 
+ 			comment_hb
+ 		where
+ 			boardnum = #{boardNum} and commentnum = #{commentNum}
+ 	
+ 	</delete>
+ 	
+ 	<select id="selectCommentByNum" resultMap="comment">
+ 		select
+ 			*
+ 		from
+ 			comment_hb
+ 		where
+ 			boardnum = #{boardNum}
+ 		order by
+ 			enrolldate desc
+ 			
+ 	</select>
+ 	
+ 	<insert id="insertComment">
+ 		insert into
+ 			comment_hb(boardnum,commentnum,content,writer,memberid)
+ 		values(
+ 			#{boardId},
+ 			comment_hb_seq.nextval,
+ 			#{content},
+ 			#{writer},
+ 			#{memberId}
+ 		)
+ 	
+ 	</insert>
+ 
+ 	<select id = "selectTotalBoardCount" resultType="_int">
+ 	
+ 		select
+ 			count(*)
+ 		from
+ 			board_hb
+ 	</select>
+ 	
+ 	<update id="addReadCount">
+ 		update
+ 			board_hb
+ 		set
+ 			read_count = read_count + 1
+ 		where
+ 			num = #{num}
+ 	
+ 	</update>
+ 	
+ 	<update id="UpdateBoard">
+ 		update
+ 			board_hb
+ 		set
+ 			title = #{title},
+ 			content = #{content}
+ 		where
+ 			num = #{num}
+ 	</update>
+ 	
+ 	<delete id="deleteBoard">
+ 		delete from 
+ 			board_hb
+ 		where
+ 			num = #{num}
+ 		
+ 	</delete>
+ 	
+ 	<insert id ="insertBoard">
+ 		insert into
+ 			board_hb(num,title,content,writer,memberid)
+ 		values(
+ 			board_hb_seq.nextval,
+ 			#{title},
+ 			#{content},
+ 			#{writer},
+ 			#{memberId}
+ 		)
+ 	
+ 	</insert>
+ 	
+ 	<select id="selectAllBoard" resultMap="board">
+ 		select 
+ 			*
+ 		from
+ 			(select
+ 				row_number() over(order by num desc) rnum,
+ 				b.*
+ 			from
+ 				board_hb b)
+ 		where
+ 			rnum between #{startNum} and #{endNum}
+ 	
+ 	</select>
+ 	
+ 	
+ 	<select id="selectBoardByNum" resultMap="board">
+ 		select
+ 			*
+ 		from
+ 			board_hb
+ 		where
+ 			num = #{num}
+ 	</select>
+ 	
+ 	<resultMap type="com.example.demo.board.model.vo.Board" id="board">
+ 		<id property="num" column="NUM"/>
+ 		<result property="title" column="TITLE"/>
+ 		<result property="content" column="CONTENT"/>
+ 		<result property="writer" column="WRITER"/>
+ 		<result property="enrollDate" column="ENROLLDATE"/>
+ 		<result property="readCount" column="READ_COUNT"/>
+ 	
+ 	</resultMap>
+ 	
+ 	<resultMap type="com.example.demo.board.model.vo.Comment" id="comment">
+ 		<id property="commentNum" column="COMMENTNUM"/>
+ 		<result property="boardId" column="BOARDNUM"/>
+ 		<result property="writer" column="WRITER"/>
+ 		<result property="content" column="CONTENT"/>
+ 		<result property="enrollDate" column="ENROLLDATE"/>
+ 	</resultMap>
+
+ 
+ 
+ </mapper>
