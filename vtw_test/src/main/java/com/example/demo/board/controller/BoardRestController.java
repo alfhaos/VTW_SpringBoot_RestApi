@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.board.model.service.BoardService;
 import com.example.demo.board.model.vo.Board;
@@ -208,18 +210,15 @@ public class BoardRestController {
 	
 
 	@PostMapping("/insertBoard")
-	public int insertFrm(
-			String title,
-			String content,
-			String memberId,
-			HttpSession session) {
+	public int insertFrm(String title,String content,String memberId,@RequestParam("upFile") MultipartFile mFile,HttpSession session) {
 		
 		
 		int result= 0;
 		Member loginMember =(Member)session.getAttribute("member");
 
 		Board board = new Board(title,content,loginMember.getName(),memberId);
-
+		
+		System.out.println(mFile.getOriginalFilename());
 
 		try {
 			result = boardService.insertBoard(board);

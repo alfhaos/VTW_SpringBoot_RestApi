@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -8,21 +8,19 @@
 
 
 <div class="board_detail_container">
-	
+
 	<table class="table_board">
-	
+
 		<thead>
 			<tr>
 				<th colspan="4" id="table_title">
 					<div class="container_detail_title">
-						<span id="detail_title">
-							${board.title}
-						</span>
+						<span id="detail_title"> ${board.title} </span>
 					</div>
 				</th>
 			</tr>
 		</thead>
-		
+
 		<tbody id="bb">
 			<tr>
 				<th>작성자</th>
@@ -36,43 +34,44 @@
 			</tr>
 			<tr>
 				<td colspan="4">
-					<div class="board_content">
-						${board.content}
-					</div>
+					<div class="board_content">${board.content}</div>
 				</td>
 			</tr>
 		</tbody>
-	
+
 	</table>
-	<input type="hidden" id = "board_num" value="${board.num}">
-	
+	<input type="hidden" id="board_num" value="${board.num}">
+
 	<c:if test="${board.writer eq member.name}">
-		<button type="button" value = "${board.num}" id = "btn-update">수정</button>
-		<button type="button" value = "${board.num}" id = "btn-delete">삭제</button>
+		<button type="button" value="${board.num}" id="btn-update">수정</button>
+		<button type="button" value="${board.num}" id="btn-delete">삭제</button>
 	</c:if>
-	
-	
-	<div class = "board_comment_container">
-		
-		<input type="text" class = "comment" placeholder="댓글을 입력해주세요" maxlength="50">
-		<button type="button" id = "comment_btn">등록</button>
-		
-		
+
+
+	<div class="board_comment_container">
+
+		<input type="text" class="comment" placeholder="댓글을 입력해주세요"
+			maxlength="50">
+		<button type="button" id="comment_btn">등록</button>
+
+
 		<div class="board_comment_list">
 			<ul id="ul_list">
 				<c:forEach var="comment" items="${commentList}">
-					<li id ="${comment.commentNum}">
-						<div class = 'list_writer'>${comment.writer}</div>
-						<div class = 'list_date'>${comment.formatDate}</div>
-						<div class = 'list_content' id="content_${comment.commentNum}">${comment.content}</div>
+					<li id="${comment.commentNum}">
+						<div class='list_writer'>${comment.writer}</div>
+						<div class='list_date'>${comment.formatDate}</div>
+						<div class='list_content' id="content_${comment.commentNum}">${comment.content}</div>
 						<c:if test="${comment.memberId eq member.id}">
-							<div class = "list_btn" id="btnGroup_${comment.commentNum}">
-								<button value="${comment.commentNum}" class = "comment_update" onclick='commentUpdate(${comment.commentNum});'>수정</button>
-								<button value="${comment.commentNum}" class = "comment_delete" onclick='commentDelete(${comment.commentNum});'>삭제</button>
+							<div class="list_btn" id="btnGroup_${comment.commentNum}">
+								<button value="${comment.commentNum}" class="comment_update"
+									onclick='commentUpdate(${comment.commentNum});'>수정</button>
+								<button value="${comment.commentNum}" class="comment_delete"
+									onclick='commentDelete(${comment.commentNum});'>삭제</button>
 							</div>
 						</c:if>
 					</li>
-				</c:forEach>		
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
@@ -85,18 +84,10 @@ const num = $("#board_num").val();
 // header에서 선언한 로그인멤버 아이디 담은거 가져온것
 const loginMemberId = $("#loginMemberId").val();
 
-
-
-
-
-
-
 $("#comment_btn").click((e) => {
 	
 	var comment = $(".comment").val();
 	
-	
-
 	// ajax을 통해 등록하고 반환값으로 댓글 목록을 반환하면 등록하고 다시 갱신되는거까지 볼수있는 미뤄클
 	$.ajax({
 		url:`${pageContext.request.contextPath}/boardRest/insertComment`,
@@ -109,9 +100,6 @@ $("#comment_btn").click((e) => {
 			var clist = "";
 			
 			displayComment(commentList,clist,loginMemberId);
-			
-			
-			
 		},
 		error: console.log
 	});
@@ -216,9 +204,7 @@ function commentUpdateTr(commentnum){
 			var clist = "";
 			
 			displayComment(commentList,clist,loginMemberId);
-			
-			
-			
+
 		},
 		error: console.log
 	});
@@ -294,4 +280,4 @@ function commentDelete(commentnum){
 
 </script>
 
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>

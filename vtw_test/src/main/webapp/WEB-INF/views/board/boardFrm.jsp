@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-    
+
 
 
 
 <div class="boardFrm-container">
 	<h3>게시글 작성</h3>
 
-	<form 
-		id = "insertBoard">
-		
+	<form method="post" enctype="multipart/form-data" id="insertBoard">
+
 		<table class="boardFrm-table">
 			<tbody>
 				<tr>
@@ -26,13 +25,18 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td colspan="3"><textarea rows="5" cols="80" maxlength="1900" name="content"></textarea></td>
+					<td colspan="3"><textarea rows="5" cols="80" maxlength="1900"
+							name="content"></textarea></td>
+				</tr>
+				<tr>
+					<th>파일 첨부</th>
+					<td><input type="file" id= "file" name= "file" multiple="multiple" accept="*"></td>
 				</tr>
 			</tbody>
 		</table>
 
 		<button>작성</button>
-		<input type="hidden" value="${member.id}" name = "memberId">
+		<input type="hidden" value="${member.id}" name="memberId">
 	</form>
 
 </div>
@@ -47,6 +51,14 @@ $(insertBoard).submit((e) => {
 	const title = $(e.target).find("[name=title]").val();
 	const content = $(e.target).find("[name=content]").val();
 	const memberId = $(e.target).find("[name=memberId]").val();
+	
+	var formData = new FormData();
+	
+	var upFile = $("#file")[0].files;
+	
+	formData.append("upFile",upFile[0]);
+	
+	console.log(upFile);
 	if(title == ""){
 		alert("제목을 입력하세요.");
 	}
@@ -57,13 +69,18 @@ $(insertBoard).submit((e) => {
 	else{
 		
 		$.ajax({
+			enctype: "multipart/form-data",
 			url:"${pageContext.request.contextPath}/boardRest/insertBoard",
 			method:"POST",
+			type : "POST",
 			data:{
-				"title" : title,
-				"content" : content,
-				"memberId" : memberId
+				title,
+				content,
+				memberId,
+				formData
 			},
+			processData : false,
+			contentType : false,
 			success: function(errCount){
 				
 				if(errCount == 1){
@@ -90,4 +107,4 @@ $(insertBoard).submit((e) => {
 </script>
 
 
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -13,12 +13,12 @@
 		
 		<div id = "input_id">
 			<label>아이디</label>
-			<input type="text" name="id" id = "userid">
+			<input type="text" name="id" id = "userid" value="alfhaos">
 		</div>
 		
 		<div id = "input_pwd">
 			<label>비밀번호</label>
-			<input type="password" name="pwd" id = "userpwd">
+			<input type="password" name="pwd" id = "userpwd" value="1234">
 		</div>
 		
 		<div id = "btn-login">

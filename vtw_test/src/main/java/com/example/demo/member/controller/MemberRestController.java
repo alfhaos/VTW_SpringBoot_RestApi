@@ -59,10 +59,7 @@ public class MemberRestController {
 	}
 	
 	@GetMapping("/signIn")
-	public int Member(
-			String id, 
-			String pwd,
-			HttpSession session) throws Exception {
+	public int Member(String id, String pwd, HttpSession session) throws Exception {
 		
 		Member member = null;
 		int errCount = 0;
@@ -74,25 +71,18 @@ public class MemberRestController {
 			errCount++;
 		}
 		
-		
-		//id로 멤버 조회후 errCount 값에 따라 로그인 or 로그인 실패 여부 결정(loginFrm의 ajax내에서)
-		
 		if(member != null) {
 			if(bcryptPasswordEncoder.matches(pwd, member.getPwd())) {
 				
 				session.setAttribute("member", member);
 				
 				return errCount;
-			}
-			else {
+			} else {
 				errCount++;
 			}
-		}
-		else {
+		} else {
 			errCount++;
 		}
-		
-
 		return errCount;
 	}
 	
@@ -113,7 +103,6 @@ public class MemberRestController {
 			e.printStackTrace();
 			result = 0;
 		}
-
 
 		return result;
 	}
