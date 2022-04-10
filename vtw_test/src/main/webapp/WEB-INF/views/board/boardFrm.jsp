@@ -52,13 +52,13 @@ $(insertBoard).submit((e) => {
 	const content = $(e.target).find("[name=content]").val();
 	const memberId = $(e.target).find("[name=memberId]").val();
 	
-	var formData = new FormData();
+	/*var formData = new FormData();
 	
 	var upFile = $("#file")[0].files;
 	
 	formData.append("upFile",upFile[0]);
-	
-	console.log(upFile);
+	*/
+
 	if(title == ""){
 		alert("제목을 입력하세요.");
 	}
@@ -69,18 +69,14 @@ $(insertBoard).submit((e) => {
 	else{
 		
 		$.ajax({
-			enctype: "multipart/form-data",
 			url:"${pageContext.request.contextPath}/boardRest/insertBoard",
 			method:"POST",
 			type : "POST",
 			data:{
 				title,
 				content,
-				memberId,
-				formData
+				memberId
 			},
-			processData : false,
-			contentType : false,
 			success: function(errCount){
 				
 				if(errCount == 1){

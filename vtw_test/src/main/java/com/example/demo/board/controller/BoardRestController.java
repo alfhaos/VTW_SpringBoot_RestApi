@@ -210,15 +210,13 @@ public class BoardRestController {
 	
 
 	@PostMapping("/insertBoard")
-	public int insertFrm(String title,String content,String memberId,@RequestParam("upFile") MultipartFile mFile,HttpSession session) {
+	public int insertFrm(String title,String content,String memberId,HttpSession session) {
 		
 		
 		int result= 0;
 		Member loginMember =(Member)session.getAttribute("member");
 
 		Board board = new Board(title,content,loginMember.getName(),memberId);
-		
-		System.out.println(mFile.getOriginalFilename());
 
 		try {
 			result = boardService.insertBoard(board);
