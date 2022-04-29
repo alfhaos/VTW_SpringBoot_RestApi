@@ -4,9 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
  <mapper namespace = "com.example.demo.member.model.dao.MemberDao">
- 
- 
- 
+
  	<select id="selectNameById" resultType="string">
  		select
  			name
@@ -16,6 +14,7 @@
  			id = #{id}
  	
  	</select>
+ 	
  	<insert id ="insertMember">
  		insert into
  			member_hb
@@ -35,11 +34,7 @@
  			member_hb
  		where
  			id = #{id}
- 		
- 	
+ 
  	</select>
- 	
 
- 
- 
  </mapper>

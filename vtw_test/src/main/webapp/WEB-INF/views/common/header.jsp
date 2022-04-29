@@ -21,6 +21,14 @@
 </head>
 <body>
 
+<script>
+
+function logout(){
+
+	location.href = '${pageContext.request.contextPath}/member/logout';
+}
+	
+</script>
 
 <div id = "header-container">
 	<img src="${pageContext.request.contextPath }/resources/img/vtwLogo.png" id="vtwLogo" <%if(member != null){ %>onclick="location.href = '${pageContext.request.contextPath}/board/backToIndex'"<%} %>>
@@ -37,17 +45,6 @@
 	<%}%>
 	
 </div>
-
-
-<script>
-
-function logout(){
-
-	location.href = '${pageContext.request.contextPath}/member/logout';
-}
-	
-</script>
-
 
 <section id = "section">
 

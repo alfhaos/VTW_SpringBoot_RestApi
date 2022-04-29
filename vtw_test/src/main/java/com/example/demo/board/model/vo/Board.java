@@ -25,18 +25,12 @@ public class Board {
 	
 	private int readCount;
 	
-	
-	
-	
 	public Board(String title, String content, String writer) {
 		super();
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
 	}
-
-
-
 
 	public Board(int num, String title, String content,String writer) {
 		super();
@@ -46,18 +40,12 @@ public class Board {
 		this.writer = writer;
 	}
 
-
-
-
 	public Board(int num, String title, String content) {
 		super();
 		this.num = num;
 		this.title = title;
 		this.content = content;
 	}
-
-
-
 
 	public Board(String title, String content, String writer, String memberId) {
 		super();
@@ -67,8 +55,4 @@ public class Board {
 		this.memberId = memberId;
 	}
 	
-	
-	
-	
-
 }

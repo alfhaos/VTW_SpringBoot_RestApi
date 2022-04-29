@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: /springboot
+  port: 10000
+
+spring:
+  datasource:
+    url: jdbc:tibero:thin:@10.47.39.125:8629:DB_D_GMD
+    username: GMDMF
+    password: gmdmf
+    driver-class-name: com.tmax.tibero.jdbc.TbDriver
+
+mybatis:
+  type-aliases-package: com.example.demo
+  mapper-locations: classpath*:mapper/**/*-mapper.xml

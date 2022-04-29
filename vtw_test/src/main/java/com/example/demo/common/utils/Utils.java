@@ -2,8 +2,6 @@ package com.example.demo.common.utils;
 
 public class Utils {
 	
-	
-	
 	public static String getPageBar(int cPage, int numPerPage, int totalContent, String url) {
 		
 		StringBuilder pagebar = new StringBuilder(); 
@@ -20,8 +18,6 @@ public class Utils {
 				+ "			  <ul class=\"pagination justify-content-center pagination-sm\">\r\n"
 				+ "			    ");
 		
-		
-		
 		// pageNo
 		while(pageNo <= pageEnd) {
 			if(pageNo == cPage) {
@@ -35,9 +31,6 @@ public class Utils {
 			
 			pageNo++;
 		}
-		
-		
-
 		
 		pagebar.append("			  </ul>\r\n"
 				+ "			</nav>\r\n"
@@ -56,12 +49,9 @@ public class Utils {
 
 				+ "</script>");
 		
-		
-		
 		/*				+ "function paging(pageNo){"
 				+ "location.href = `" + url + "${pageNo}`;}"
 */
-		
 		return pagebar.toString();
 		
 	}

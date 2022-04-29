@@ -27,15 +27,13 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
-	
 
 	@GetMapping("/boardDetail")
 	public String boardDetail(
 			HttpServletRequest request,
 			int num,
 			HttpSession session,
-			Model md
-			) {
+			Model md) {
 		Board board;
 		List<Comment> commentList = null;
 		Member loginMember =(Member)session.getAttribute("member");
@@ -46,7 +44,6 @@ public class BoardController {
 			board.setContent(board.getContent().replaceAll("\n", "<br/>"));
 			commentList = boardService.selectCommentByNum(num);
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			board = null;
@@ -54,9 +51,8 @@ public class BoardController {
 		
 		md.addAttribute("member", loginMember);
 		md.addAttribute(board);
-		md.addAttribute(commentList);
+		md.addAttribute(commentList); 
 
-		
 		return "forward:/WEB-INF/views/board/boardDetail.jsp";
 	}
 	
@@ -66,16 +62,9 @@ public class BoardController {
 			Model md) {
 
 		int num = Integer.parseInt(request.getParameter("num"));
-		int result;
 		
-		try {
-			result = boardService.deleteBoard(num);
-		} catch (Exception e) {
-			e.printStackTrace();
-			result = 0;
-		}
-		
-		
+		boardService.deleteBoard(num);
+	
 		return "forward:/index.jsp";
 	}
 	
@@ -109,7 +98,5 @@ public class BoardController {
 		md.addAttribute("member", loginMember);
 		return "forward:/index.jsp";
 	}
-	
-	
 	
 }

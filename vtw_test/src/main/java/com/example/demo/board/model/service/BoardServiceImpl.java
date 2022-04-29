@@ -28,13 +28,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Board> selectAllBoard(Map<String,Integer> param) {
-		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy/MM/dd");
-		List<Board> boardList = boardDao.selectAllBoard(param);
-		for (Board board : boardList) {
-			board.setFormatDate(dtFormat.format(board.getEnrollDate()));
-		}
 		
-		return boardList;
+		return setSimpleDateFormat(boardDao.selectAllBoard(param));
 	}
 
 	@Override
@@ -95,18 +90,19 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Board> selectBoardReadCount(Map<String, Integer> param) {
-		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy/MM/dd");
-		List<Board> boardList = boardDao.selectBoardReadCount(param);
-		for (Board board : boardList) {
-			board.setFormatDate(dtFormat.format(board.getEnrollDate()));
-		}
-		return boardList;
+		
+		return setSimpleDateFormat(boardDao.selectBoardReadCount(param));
 	}
 
 	@Override
 	public List<Board> selectBoardUser(Map<String, Integer> param,String writerId) {
+
+		return setSimpleDateFormat(boardDao.selectBoardUser(param,writerId));
+	}
+	
+	public List<Board> setSimpleDateFormat(List<Board> boardList){
 		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy/MM/dd");
-		List<Board> boardList = boardDao.selectBoardUser(param,writerId);
+		
 		for (Board board : boardList) {
 			board.setFormatDate(dtFormat.format(board.getEnrollDate()));
 		}

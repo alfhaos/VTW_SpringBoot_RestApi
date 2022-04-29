@@ -4,34 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-    
-
-	<div id = "container-board">
-		<div id = "container-board-choice">
-			<input type="radio" name = "choice" value = "last" checked="checked" id="first">최신순
-			<input type="radio" name = "choice" value = "readCount">조회순
-			<input type="radio" name = "choice" value = "user_board">나의 게시글
-		</div>
-		<% if(member != null){ %>	
-			<button type = 'button' onclick = 'searchBoard();'>
-				<span class="material-icons">
-					autorenew
-				</span>
-			</button>
-			<button type = 'button' onclick = 'createBoard();' id="create_board">글쓰기</button>
-		<%}%>
-	</div>
-	<div id = "container-board-main">
-	</div>
-	
-	
-	<div id = "container-pagebar">
-	
-	</div>
-	
 <script>
 	
-	function inputBoard(){
+function inputBoard(){
 		
 		const title = $("#title").val();
 		const content = $("#content").val();
@@ -52,13 +27,13 @@
 			error: console.log
 		});
 		
-	}
+}
 	
-	function createBoard(){
+function createBoard(){
 		location.href = "${pageContext.request.contextPath}/board/boardFrm";
-	}
+}
 	
-	function searchBoard(){
+function searchBoard(){
 		$("#first").prop('checked',true);
 		
 		$.ajax({
@@ -68,13 +43,8 @@
 				
 				var mapBoard = resp.board;
 				var pageBar = resp.pagebar;
-				
-				console.log(mapBoard);
-				console.log(pageBar);
-				
 				var len = mapBoard.length;
-				
-				
+			
 				let boardList = 
 					`<div id = "container-board-list">
 						<table class="main_table">
@@ -111,7 +81,7 @@
 		      	else {
 		      		boardList += `<tr><td colspan='6'>검색된 결과가 없습니다.</td></tr>`;	        		
 	        	}	
-
+				
 				$("#container-board-list").remove();
 				$("#board_detail_container").remove();
 				$("#container-board-main").append(boardList);	
@@ -119,22 +89,17 @@
 			},
 			error: console.log
 		});
-		
-		
-	}
-	function boardDetail(num){
+}
+function boardDetail(num){
 
 		location.href = "${pageContext.request.contextPath}/board/boardDetail?num="+num;
-		
-		
-	}
+
+}
 	
-	
-	$(function(){ 
+$(function(){ 
 		
 		searchBoard();
-	});
-	
+
 	
 	$("input[name='choice']:radio").change(function(e) {
 		var radio = $(e.target).val();
@@ -159,10 +124,8 @@
 				},
 				error: console.log
 			});
-			
-			
-			
 		}
+		
 		else if(radio == 'user_board'){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/boardRest/selectBoardUser",
@@ -182,6 +145,7 @@
 		}
 		
 	});
+});
 
 function displayBoard(mapBoard,pageBar,len){
 		
@@ -223,7 +187,6 @@ function displayBoard(mapBoard,pageBar,len){
 				</div>`;
 			$("#pageBar").remove();
 
-
 		}
       	else {
       		boardList += `<tr><td colspan='6' id = 'empty'>검색된 결과가 없습니다.</td></tr>`;	
@@ -234,11 +197,32 @@ function displayBoard(mapBoard,pageBar,len){
 		$("#board_detail_container").remove();
 		$("#container-board-main").append(boardList);	
 		$("#container-pagebar").append(pageBar);
-		
-	}
+}
 	
-	        
-</script>
+</script>    
+	<div id = "container-board">
+		<div id = "container-board-choice">
+			<input type="radio" name = "choice" value = "last" checked="checked" id="first">최신순
+			<input type="radio" name = "choice" value = "readCount">조회순
+			<input type="radio" name = "choice" value = "user_board">나의 게시글
+		</div>
+		<% if(member != null){ %>	
+			<button type = 'button' onclick = 'searchBoard();'>
+				<span class="material-icons">
+					autorenew
+				</span>
+			</button>
+			<button type = 'button' onclick = 'createBoard();' id="create_board">글쓰기</button>
+		<%}%>
+	</div>
+	
+	<div id = "container-board-main">
+	
+	</div>
+	<div id = "container-pagebar">
+
+	</div>
+
 </section>	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 

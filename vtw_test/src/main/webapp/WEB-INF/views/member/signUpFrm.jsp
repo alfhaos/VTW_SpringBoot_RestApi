@@ -4,68 +4,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-    
-
-<form 
-	id="signUpFrm">
-	<div id="container-signUp">
-		<div id = "signUp-Group-1">
-			<p>아이디</p>
-			<div id="signUp-Group-id">
-				<span id="box_id">
-					<input type="text" name="id" id="id" maxlength="12">
-				</span>
-				<span id = "error_span_id"></span>
-				<!-- <button type="button" id="idCheck">중복확인</button> -->
-			</div>
-
-		</div>
-		<div id = "signUp-Group-2">
-			<p id="signUpFrm-pwd">비밀번호</p>
-			<span id="box_pwd">
-				<input type="password" name="pwd" id = "pwd" maxlength="16">
-			</span>
-			<span id = "error_span_pwd"></span>
-			
-			
-			<p id="pwdck">비밀번호 확인</p>
-			<span id="box_pwdck">
-				<input type="password" name="pwdCheck" id = "pwdCk">
-			</span>
-			<span id = "error_span_pwdCk"></span>
-		</div>
-		
-		<div id = "signUp-Group-3">
-			<p>이름</p>
-			<span id="box_name">
-				<input type="text" name="name" id = "userName" maxlength="10">
-			</span>
-			<span id = "error_span_name"></span>
-		</div>
-		
-		
-		<div id = "signUp-Group-btn">
-			<button id="signUp-btn">회원가입</button>
-			<button type="button" id="signUpCancel-btn" onclick="location.href='${pageContext.request.contextPath}/member/logout'">취소</button>
-		</div>
-	</div>
-</form>
-
-
-
 <script>
-
-	
+$(() => {
 	let IdCheck = false;
 	let pwdCheck = false;
 	let idErrorCount = 1;
 	let pwdErrorCount = 1;
 	let pwdCkErrorCount = 1;
 	let nameErrorCount = 1;
-	
 	let userPwd;
-	
-	
+
 	// 정규 표현식
 	const idRegExp = /^[a-z]{4,12}$/;
 	const pwdRegExp = /[a-zA-Z0-9]{8,16}$/;
@@ -87,7 +35,6 @@
 			error_span_name.innerText = "한글과 영문 대 소문자를 이용하세요.";
 			nameErrorCount = 1;
 		}
-		
 		
 	});
 	
@@ -112,14 +59,11 @@
 
 		}
 		
-
-		
 	});
 	
 	$("#pwd").focusout(function() {
 		
 		userPwd = $("#pwd").val();
-		
 		
 		if(userPwd == ""){
 			error_span_pwd.innerText = "필수 입력사항입니다.";
@@ -135,15 +79,12 @@
 			pwdCheck = true;
 		}
 		
-		
 	});
-	
 	
 	$("#id").focusout(function() {
 
 		var userId = $("#id").val();
 		var advice = $(".error_span_id");
-		
 		
 		if(userId == ""){
 			error_span_id.innerText = "필수 입력사항입니다.";
@@ -179,7 +120,6 @@
 		
 	});
 	
-	
 	$(signUpFrm).submit((e) => {
 		e.preventDefault();
 		
@@ -203,8 +143,6 @@
 						alert("회원 등록 성공");
 						location.href = "${pageContext.request.contextPath}/member/logout";
 					}
-
-					
 				},
 				error: console.log
 			});
@@ -225,11 +163,7 @@
 			}
 		};
 		
-		
-		
-		
 	});
-	
 	
 	$("#idCheck").click((e) => {
 		var id = $("#id").val();
@@ -251,11 +185,50 @@
 			error: console.log
 		});
 	});
-	
-	
-	
+});
 
-</script>
+</script>    
+<form 
+	id="signUpFrm">
+	<div id="container-signUp">
+		<div id = "signUp-Group-1">
+			<p>아이디</p>
+			<div id="signUp-Group-id">
+				<span id="box_id">
+					<input type="text" name="id" id="id" maxlength="12">
+				</span>
+				<span id = "error_span_id"></span>
+			</div>
+
+		</div>
+		<div id = "signUp-Group-2">
+			<p id="signUpFrm-pwd">비밀번호</p>
+			<span id="box_pwd">
+				<input type="password" name="pwd" id = "pwd" maxlength="16">
+			</span>
+			<span id = "error_span_pwd"></span>
+			
+			<p id="pwdck">비밀번호 확인</p>
+			<span id="box_pwdck">
+				<input type="password" name="pwdCheck" id = "pwdCk">
+			</span>
+			<span id = "error_span_pwdCk"></span>
+		</div>
+		
+		<div id = "signUp-Group-3">
+			<p>이름</p>
+			<span id="box_name">
+				<input type="text" name="name" id = "userName" maxlength="10">
+			</span>
+			<span id = "error_span_name"></span>
+		</div>
+		
+		<div id = "signUp-Group-btn">
+			<button id="signUp-btn">회원가입</button>
+			<button type="button" id="signUpCancel-btn" onclick="location.href='${pageContext.request.contextPath}/member/logout'">취소</button>
+		</div>
+	</div>
+</form>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 	

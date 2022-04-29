@@ -13,8 +13,6 @@ public class MemberServiceImpl implements MemberService  {
 	@Autowired
 	private MemberDao memberDao;
 
-
-
 	@Override
 	public int insertMember(Member member) {
 		
@@ -23,6 +21,7 @@ public class MemberServiceImpl implements MemberService  {
 
 	@Override
 	public Member selectMemberById(String id) {
+		
 		return memberDao.selectMemberById(id);
 	}
 

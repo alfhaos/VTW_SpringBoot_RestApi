@@ -11,9 +11,10 @@ public class WebConfig {
 	@Bean
  	public FilterRegistrationBean logFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-	 	filterRegistrationBean.setFilter(new LoginCheckFilter()); //내가 구현한 필터 넣기
+	 	filterRegistrationBean.setFilter(new LoginCheckFilter());  // 커스텀 로그인 체크 필터 적용
  	 	filterRegistrationBean.setOrder(1); //필터 체인할 때 가장 먼저 실행
- 		 filterRegistrationBean.addUrlPatterns("/*"); //모든 요청 url에 대해 실행
- 	 	return filterRegistrationBean;
+ 		filterRegistrationBean.addUrlPatterns("/*"); //모든 요청 url에 대해 실행
+ 	 	
+ 		return filterRegistrationBean;
  	}
 }

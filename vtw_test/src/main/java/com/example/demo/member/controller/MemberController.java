@@ -17,24 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/member")
-@Slf4j
 public class MemberController {
 
-	
 	@Autowired
 	private MemberService memberService;
-	
-	
-	private BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
-	
-	
+
 	@GetMapping("/signIn")
 	public String Member(
 			String id, 
 			HttpSession session,
-			Model md) throws Exception {
-		
-		
+			Model md){
+	
 		Member member;
 		try {
 			member = memberService.selectMemberById(id);

@@ -33,40 +33,19 @@ public class BoardRestController {
 	@Autowired
 	private BoardService boardService;
 	
-	
-	
 	@GetMapping("/selectBoardUser")
 	public Map<String,Object> selectBoardUser(
 			@RequestParam(defaultValue  = "1")int cPage,
 			HttpSession session,
-			HttpServletRequest request
-			
-			){
-		
+			HttpServletRequest request){
+	
 		Map<String,Object> map = new HashMap<String,Object>();
 		Member loginMember =(Member)session.getAttribute("member");
 		
-		final int numPerPage = 5;
-		
-		int startNum = (cPage - 1) * numPerPage + 1;
-		int endNum =  cPage * numPerPage;
-		
-		Map<String,Integer> param =new HashMap<>();
-		param.put("startNum", startNum);
-		param.put("endNum", endNum);
-		
-		List<Board> board = boardService.selectBoardUser(param,loginMember.getId());
-		
-		
-		int totalContent = boardService.selectTotalBoardCount();
-		
-		String url = request.getRequestURI();
-		String pageBar = Utils.getPageBar(cPage, numPerPage, totalContent, url);
-		
+		List<Board> board = boardService.selectBoardUser(getParam(cPage),loginMember.getId());
 		
 		map.put("board", board);
-		map.put("pagebar", pageBar);
-		
+		map.put("pagebar", getPageBar(cPage, request));
 		
 		return map;
 		
@@ -74,29 +53,14 @@ public class BoardRestController {
 	@GetMapping("/selectBoardReadCount")
 	public Map<String,Object> selectBoardReadCount(
 			@RequestParam(defaultValue  = "1")int cPage,
-			HttpServletRequest request
-			){
+			HttpServletRequest request){
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		
-		final int numPerPage = 5;
-		
-		int startNum = (cPage - 1) * numPerPage + 1;
-		int endNum =  cPage * numPerPage;
-		
-		Map<String,Integer> param =new HashMap<>();
-		param.put("startNum", startNum);
-		param.put("endNum", endNum);
-		
-		List<Board> board = boardService.selectBoardReadCount(param);
-		int totalContent = boardService.selectTotalBoardCount();
-		
-		String url = request.getRequestURI();
-		String pageBar = Utils.getPageBar(cPage, numPerPage, totalContent, url);
-		
+
+		List<Board> board = boardService.selectBoardReadCount(getParam(cPage));
 		
 		map.put("board", board);
-		map.put("pagebar", pageBar);
+		map.put("pagebar", getPageBar(cPage, request));
 		
 		return map;
 		
@@ -106,14 +70,9 @@ public class BoardRestController {
 	public List<Comment> updateComment(
 			int commentNum,
 			String commentContent,
-			int boardNum
-			){
+			int boardNum){
 		
-		try {
-			int result = boardService.updateComment(commentNum,boardNum,commentContent);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		boardService.updateComment(commentNum,boardNum,commentContent);
 		
 		List<Comment> commentList = boardService.selectCommentByNum(boardNum);
 		return commentList;
@@ -124,19 +83,10 @@ public class BoardRestController {
 	@PostMapping("/deleteComment")
 	public List<Comment> deleteComment(
 			int commentNum,
-			int boardNum
-			) {
-		
-		try {
-			
-			int result = boardService.deleteComment(commentNum,boardNum);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		}
-		
-		
+			int boardNum){
+	
+
+		boardService.deleteComment(commentNum,boardNum);
 		
 		List<Comment> commentList = boardService.selectCommentByNum(boardNum);
 		
@@ -147,73 +97,46 @@ public class BoardRestController {
 	public List<Comment> insertComment(
 			HttpSession session,
 			String content,
-			int boardNum) {
-		
+			int boardNum){
+
 		Member loginMember =(Member)session.getAttribute("member");
 		Comment comment = new Comment(loginMember.getName(),content,boardNum,loginMember.getId());
 		
-		try {
-			int result = boardService.insertComment(comment);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		boardService.insertComment(comment);
 		
 		List<Comment> commentList = boardService.selectCommentByNum(boardNum);
 		
-		
 		return commentList;
 	}
-	
 	
 	@GetMapping("/selectAllBoard")
 	public Map<String,Object> selectAllBoard(
 			@RequestParam(defaultValue  = "1")int cPage,
 			HttpServletRequest request,
-			Model md
-			){
+			Model md){
 		
 		List<Board> board;
 		Map<String,Object> map = new HashMap<String,Object>();
 		try {
-
-			
-			final int numPerPage = 5;
-			
-			int startNum = (cPage - 1) * numPerPage + 1;
-			int endNum =  cPage * numPerPage;
-			
-			Map<String,Integer> param =new HashMap<>();
-			param.put("startNum", startNum);
-			param.put("endNum", endNum);
-			
-			
-			board = boardService.selectAllBoard(param);
-			int totalContent = boardService.selectTotalBoardCount();
-			
-			String url = request.getRequestURI();
-			String pageBar = Utils.getPageBar(cPage, numPerPage, totalContent, url);
-			
+				
+			board = boardService.selectAllBoard(getParam(cPage));
 			
 			map.put("board", board);
-			map.put("pagebar", pageBar);
-			
+			map.put("pagebar", getPageBar(cPage, request));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			board = null;
 		}
 		
-		
 		return map;
 	}
-	
 
 	@PostMapping("/insertBoard")
 	public int insertFrm(String title,String content,String memberId,HttpSession session) {
 		
-		
 		int result= 0;
+		
 		Member loginMember =(Member)session.getAttribute("member");
 
 		Board board = new Board(title,content,loginMember.getName(),memberId);
@@ -225,22 +148,18 @@ public class BoardRestController {
 			result = 0;
 		}
 		
-		
 		return result;
 	}
-
-	
-	
-	
 	
 	@PostMapping("/boardUpdate")
 	public int boardUpdate(
 			String title,
 			String content,
-			int num) {
+			int num){
 		
 		int result=0;
 		Board board = new Board(num,title,content);
+		
 		board.setContent(board.getContent().replaceAll("<br/>", "\n"));
 		try {
 			result = boardService.UpdateBoard(board);
@@ -249,14 +168,37 @@ public class BoardRestController {
 			result=0;
 		}
 		
-		
 		return result;
 	}
-	
 
-	
-	
-			
+	public String getPageBar(int cPage,HttpServletRequest request) {
+		final int numPerPage = 5;
 		
-
+		int startNum = (cPage - 1) * numPerPage + 1;
+		int endNum =  cPage * numPerPage;
+		
+		Map<String,Integer> param =new HashMap<>();
+		param.put("startNum", startNum);
+		param.put("endNum", endNum);
+		
+		int totalContent = boardService.selectTotalBoardCount();
+		
+		String url = request.getRequestURI();
+		String pageBar = Utils.getPageBar(cPage, numPerPage, totalContent, url);
+		
+		return pageBar;
+	}
+	
+	public Map<String,Integer> getParam(int cPage){
+		final int numPerPage = 5;
+		
+		int startNum = (cPage - 1) * numPerPage + 1;
+		int endNum =  cPage * numPerPage;
+		
+		Map<String,Integer> param =new HashMap<>();
+		param.put("startNum", startNum);
+		param.put("endNum", endNum);
+		
+		return param;
+	}
 }
